@@ -32,4 +32,39 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 5,
   },
+
+  recipeDetailContainer: {
+    flex: 1,
+    padding: 20,
+  },
+
+  recipeDetailImage: {
+    width: "100%",
+    aspectRatio: 16 / 9,
+    borderRadius: 10,
+    marginBottom: 20,
+  },
+
+  recipeDetailTitle: {
+    fontSize: 26,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+
+  recipeDetailHeading: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginTop: 20,
+    marginBottom: 5,
+  },
+
+  loading: {
+    padding: 20,
+  },
+  recipeDetailText: {
+    fontSize: 16,
+    lineHeight: 24,
+    marginTop: 6,
+    marginBottom: 16,
+  },
 });
