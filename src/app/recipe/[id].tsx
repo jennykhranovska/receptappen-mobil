@@ -1,14 +1,14 @@
 import { styles } from "@/styles/homeStyles";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { Image, ScrollView, Text } from "react-native";
+import { Image, Pressable, ScrollView, Text } from "react-native";
 
 export default function RecipeScreen() {
   const { id } = useLocalSearchParams();
   const [recipe, setRecipe] = useState<any>(null);
 
   useEffect(() => {
-    fetch("http://10.0.2.2:5008/api/Recipes")
+    fetch("http://localhost:5008/api/Recipes")
       .then((response) => response.json())
       .then((data) => {
         const selectedRecipe = data.find(
@@ -33,12 +33,15 @@ export default function RecipeScreen() {
     >
       {recipe.imagePath && (
         <Image
-          source={{ uri: `http://10.0.2.2:5008${recipe.imagePath}` }}
+          source={{ uri: `http://localhost:5008${recipe.imagePath}` }}
           style={styles.recipeDetailImage}
         />
       )}
 
       <Text style={styles.title}>{recipe.name}</Text>
+      <Pressable onPress={() => router.push(`/edit-recipe/${recipe.id}`)}>
+        <Text>Redigera recept</Text>
+      </Pressable>
 
       <Text>Kategori: {recipe.category}</Text>
       <Text>Tid: {recipe.cookingTime} min</Text>

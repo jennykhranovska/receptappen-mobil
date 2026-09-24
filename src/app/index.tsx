@@ -7,7 +7,7 @@ export default function HomeScreen() {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    fetch("http://10.0.2.2:5008/api/Recipes")
+    fetch("http://localhost:5008/api/Recipes")
       .then((response) => response.json())
       .then((data) => {
         setRecipes(data);
@@ -33,7 +33,7 @@ export default function HomeScreen() {
         >
           {recipe.imagePath && (
             <Image
-              source={{ uri: `http://10.0.2.2:5008${recipe.imagePath}` }}
+              source={{ uri: `http://localhost:5008${recipe.imagePath}` }}
               style={styles.recipeImage}
             />
           )}

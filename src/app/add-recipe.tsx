@@ -1,7 +1,7 @@
+import { File } from "expo-file-system";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import { Pressable, ScrollView, Text, TextInput } from "react-native";
-
 export default function AddRecipeScreen() {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
@@ -13,7 +13,7 @@ export default function AddRecipeScreen() {
   const pickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ["images"],
-      allowsEditing: true,
+      allowsEditing: false,
       quality: 0.8,
     });
 
@@ -24,7 +24,7 @@ export default function AddRecipeScreen() {
 
   const addRecipe = async () => {
     try {
-      const response = await fetch("http://10.0.2.2:5008/api/Recipes", {
+      const response = await fetch("http://localhost:5008/api/Recipes", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -44,6 +44,27 @@ export default function AddRecipeScreen() {
       }
 
       const newRecipe = await response.json();
+      if (image) {
+        const formData = new FormData();
+
+        const file = new File(image.uri);
+
+        formData.append("image", file);
+
+        const imageResponse = await fetch(
+          `http://localhost:5008/api/Recipes/${newRecipe.id}/image`,
+          {
+            method: "POST",
+            body: formData,
+          },
+        );
+
+        if (!imageResponse.ok) {
+          throw new Error(
+            "Receptet skapades, men bilden kunde inte laddas upp.",
+          );
+        }
+      }
       console.log("Recept skapat:", newRecipe);
     } catch (error) {
       console.error("Fel när receptet skulle skapas:", error);
