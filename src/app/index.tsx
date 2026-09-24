@@ -1,23 +1,11 @@
+import { styles } from "@/styles/homeStyles";
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: "bold",
-    marginBottom: 20,
-  },
-});
-
+import { Image, ScrollView, Text, View } from "react-native";
 export default function HomeScreen() {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5008/api/Recipes")
+    fetch("http://10.0.2.2:5008/api/Recipes")
       .then((response) => response.json())
       .then((data) => {
         setRecipes(data);
@@ -28,12 +16,23 @@ export default function HomeScreen() {
       });
   }, []);
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.title}>🍲 Smaka</Text>
 
       {recipes.map((recipe: any) => (
-        <Text key={recipe.id}>{recipe.name}</Text>
+        <View key={recipe.id} style={styles.card}>
+          {recipe.imagePath && (
+            <Image
+              source={{ uri: `http://10.0.2.2:5008${recipe.imagePath}` }}
+              style={styles.recipeImage}
+            />
+          )}
+
+          <Text style={styles.recipeName}>{recipe.name}</Text>
+          <Text>Kategori: {recipe.category}</Text>
+          <Text>Tid: {recipe.cookingTime} min</Text>
+        </View>
       ))}
-    </View>
+    </ScrollView>
   );
 }
