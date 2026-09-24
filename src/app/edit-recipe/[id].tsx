@@ -33,21 +33,32 @@ export default function EditRecipeScreen() {
   }, [id]);
 
   const saveRecipe = async () => {
+    console.log("saveRecipe startar");
+    console.log("saveRecipe id:", id);
+
+    const url = `http://localhost:5008/api/Recipes/${id}`;
+    const body = {
+      name,
+      category,
+      cookingTime: Number(cookingTime),
+      ingredients,
+      instructions,
+      imagePath,
+    };
+
+    console.log("PUT-URL:", url);
+    console.log("PUT-body:", body);
+
     try {
-      const response = await fetch(`http://localhost:5008/api/Recipes/${id}`, {
+      const response = await fetch(url, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          name,
-          category,
-          cookingTime: Number(cookingTime),
-          ingredients,
-          instructions,
-          imagePath,
-        }),
+        body: JSON.stringify(body),
       });
+
+      console.log("PUT response status:", response.status);
 
       if (!response.ok) {
         throw new Error("Kunde inte uppdatera receptet.");
@@ -58,7 +69,7 @@ export default function EditRecipeScreen() {
         params: { id: String(id) },
       });
     } catch (error) {
-      console.error("Fel när receptet skulle uppdateras:", error);
+      console.error("Fel när saveRecipe/PUT kördes:", error);
     }
   };
 
