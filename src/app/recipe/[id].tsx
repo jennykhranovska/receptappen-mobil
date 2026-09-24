@@ -1,26 +1,28 @@
 import { styles } from "@/styles/homeStyles";
-import { router, useLocalSearchParams } from "expo-router";
-import { useEffect, useState } from "react";
+import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
+import { useCallback, useState } from "react";
 import { Image, Pressable, ScrollView, Text } from "react-native";
 
 export default function RecipeScreen() {
   const { id } = useLocalSearchParams();
   const [recipe, setRecipe] = useState<any>(null);
 
-  useEffect(() => {
-    fetch("http://localhost:5008/api/Recipes")
-      .then((response) => response.json())
-      .then((data) => {
-        const selectedRecipe = data.find(
-          (recipe: any) => recipe.id === Number(id),
-        );
+  useFocusEffect(
+    useCallback(() => {
+      fetch("http://localhost:5008/api/Recipes")
+        .then((response) => response.json())
+        .then((data) => {
+          const selectedRecipe = data.find(
+            (recipe: any) => recipe.id === Number(id),
+          );
 
-        setRecipe(selectedRecipe);
-      })
-      .catch((error) => {
-        console.error("Kunde inte hämta receptet:", error);
-      });
-  }, [id]);
+          setRecipe(selectedRecipe);
+        })
+        .catch((error) => {
+          console.error("Kunde inte hämta receptet:", error);
+        });
+    }, [id]),
+  );
 
   if (!recipe) {
     return <Text style={styles.loading}>Laddar recept...</Text>;
