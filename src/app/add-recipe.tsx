@@ -53,10 +53,6 @@ export default function AddRecipeScreen() {
   return (
     <ScrollView>
       <Text>Lägg till recept</Text>
-
-      <Pressable onPress={addRecipe}>
-        <Text>Spara recept</Text>
-      </Pressable>
       <Text>Namn</Text>
       <TextInput
         value={name}
@@ -94,6 +90,12 @@ export default function AddRecipeScreen() {
         placeholder="Skriv instruktioner"
         multiline
       />
+      <Pressable onPress={pickImage}>
+        <Text>Välj bild</Text>
+      </Pressable>
+      <Pressable onPress={addRecipe}>
+        <Text>Spara recept</Text>
+      </Pressable>
     </ScrollView>
   );
 }
