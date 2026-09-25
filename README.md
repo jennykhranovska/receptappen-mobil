@@ -1,56 +1,80 @@
-# Welcome to your Expo app 👋
+# Smaka – mobilapp
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Smaka är en mobil receptapp byggd med React Native och Expo. Appen använder samma backend och receptdata som webbversionen av Smaka.
 
-## Get started
+## Funktioner
 
-1. Install dependencies
+I appen kan användaren:
 
-   ```bash
-   npm install
-   ```
+- Visa alla recept
+- Visa detaljer för ett recept
+- Söka efter recept
+- Lägga till nya recept
+- Redigera befintliga recept
+- Radera recept
+- Lägga till och ta bort bilder
 
-2. Start the app
+Sökningen sker lokalt bland de recept som hämtats från API:t och söker bland receptets namn, ingredienser och kategori.
 
-   ```bash
-   npx expo start
-   ```
+## Teknik
 
-In the output, you'll find options to open the app in a
+Projektet är byggt med:
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- React Native
+- Expo
+- Expo Router
+- TypeScript
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Backend är ett separat ASP.NET Core Web API och mobilappen hämtar och ändrar recept via API-anrop.
 
-## Get a fresh project
+## Installation
 
-When you're ready, run:
+Klona projektet och installera dependencies:
 
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Backend behöver vara startad innan mobilappen kan hämta recept.
 
-### Other setup steps
+API:t används på:
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+```text
+http://localhost:5008
+```
 
-## Learn more
+Starta sedan Expo:
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+npm start
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+eller:
 
-## Join the community
+```bash
+npx expo start
+```
 
-Join our community of developers creating universal apps.
+## Android-emulator
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+När appen körs i en Android-emulator behöver emulatorn kunna nå backend som körs på datorns `localhost`.
+
+Kör därför:
+
+```bash
+adb reverse tcp:5008 tcp:5008
+```
+
+Starta därefter appen i Android-emulatorn.
+
+Om Expo-utvecklingsservern inte kan nås från emulatorn kan även följande behövas:
+
+```bash
+adb reverse tcp:8081 tcp:8081
+```
+
+## Backend
+
+Backend för Smaka finns i ett separat repository:
+
+https://github.com/jennykhranovska/receptappen-api
