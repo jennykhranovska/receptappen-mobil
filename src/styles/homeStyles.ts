@@ -135,4 +135,21 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#FFFFFF",
   },
+
+  deleteButton: {
+    marginTop: 28,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    alignSelf: "center",
+    borderWidth: 1,
+    borderColor: "#A94442",
+    borderRadius: 8,
+    backgroundColor: "#F8E7E1",
+  },
+
+  deleteButtonText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#A94442",
+  },
 });

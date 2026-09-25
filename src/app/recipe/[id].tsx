@@ -1,7 +1,7 @@
 import { styles } from "@/styles/homeStyles";
 import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
 import { useCallback, useState } from "react";
-import { Image, Pressable, ScrollView, Text } from "react-native";
+import { Alert, Image, Pressable, ScrollView, Text } from "react-native";
 
 export default function RecipeScreen() {
   const { id } = useLocalSearchParams();
@@ -23,6 +23,42 @@ export default function RecipeScreen() {
         });
     }, [id]),
   );
+
+  const deleteRecipe = () => {
+    Alert.alert("Vill du verkligen radera receptet?", undefined, [
+      {
+        text: "Avbryt",
+        style: "cancel",
+      },
+      {
+        text: "Radera",
+        style: "destructive",
+        onPress: async () => {
+          try {
+            const response = await fetch(
+              `http://localhost:5008/api/Recipes/${id}`,
+              {
+                method: "DELETE",
+              },
+            );
+
+            if (!response.ok) {
+              throw new Error("Kunde inte radera receptet.");
+            }
+
+            Alert.alert("Receptet har raderats.", undefined, [
+              {
+                text: "OK",
+                onPress: () => router.replace("/"),
+              },
+            ]);
+          } catch (error) {
+            console.error("Fel när receptet skulle raderas:", error);
+          }
+        },
+      },
+    ]);
+  };
 
   if (!recipe) {
     return <Text style={styles.loading}>Laddar recept...</Text>;
@@ -54,6 +90,10 @@ export default function RecipeScreen() {
         onPress={() => router.push(`/edit-recipe/${recipe.id}`)}
       >
         <Text style={styles.buttonText}>Redigera recept</Text>
+      </Pressable>
+
+      <Pressable style={styles.deleteButton} onPress={deleteRecipe}>
+        <Text style={styles.deleteButtonText}>Radera recept</Text>
       </Pressable>
     </ScrollView>
   );
