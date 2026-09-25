@@ -1,6 +1,13 @@
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { Pressable, ScrollView, Text, TextInput } from "react-native";
+import {
+    Alert,
+    Pressable,
+    ScrollView,
+    Text,
+    TextInput,
+    View,
+} from "react-native";
 import { styles } from "../../styles/homeStyles";
 
 export default function EditRecipeScreen() {
@@ -32,6 +39,37 @@ export default function EditRecipeScreen() {
         console.error("Kunde inte hämta receptet:", error);
       });
   }, [id]);
+
+  const deleteImage = () => {
+    Alert.alert("Vill du ta bort bilden?", undefined, [
+      {
+        text: "Avbryt",
+        style: "cancel",
+      },
+      {
+        text: "Ta bort",
+        style: "destructive",
+        onPress: async () => {
+          try {
+            const response = await fetch(
+              `http://localhost:5008/api/Recipes/${id}/image`,
+              {
+                method: "DELETE",
+              },
+            );
+
+            if (!response.ok) {
+              throw new Error("Kunde inte ta bort bilden.");
+            }
+
+            setImagePath("");
+          } catch (error) {
+            console.error("Fel när bilden skulle tas bort:", error);
+          }
+        },
+      },
+    ]);
+  };
 
   const saveRecipe = async () => {
     console.log("saveRecipe startar");
@@ -75,7 +113,10 @@ export default function EditRecipeScreen() {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={{ paddingBottom: 60 }}
+    >
       <Text style={styles.formTitle}>Redigera recept</Text>
 
       <Text style={styles.label}>Namn</Text>
@@ -112,9 +153,24 @@ export default function EditRecipeScreen() {
         multiline
       />
 
-      <Pressable style={styles.button} onPress={saveRecipe}>
-        <Text style={styles.buttonText}>Spara ändringar</Text>
-      </Pressable>
+      {imagePath && <Text style={styles.label}>✓ Receptet har en bild</Text>}
+
+      <View style={styles.buttonRow}>
+        <Pressable
+          style={[styles.button, styles.buttonInRow]}
+          onPress={saveRecipe}
+        >
+          <Text style={styles.buttonText}>Spara ändringar</Text>
+        </Pressable>
+        {imagePath && (
+          <Pressable
+            style={[styles.button, styles.buttonInRow]}
+            onPress={deleteImage}
+          >
+            <Text style={styles.buttonText}>Ta bort bild</Text>
+          </Pressable>
+        )}
+      </View>
     </ScrollView>
   );
 }

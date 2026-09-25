@@ -117,6 +117,19 @@ export const styles = StyleSheet.create({
     backgroundColor: "#C65D3A",
   },
 
+  buttonRow: {
+    width: "100%",
+    flexDirection: "row",
+    gap: 8,
+  },
+
+  buttonInRow: {
+    width: "48%",
+    alignSelf: "stretch",
+    paddingHorizontal: 6,
+    justifyContent: "center",
+  },
+
   buttonText: {
     fontSize: 16,
     fontWeight: "bold",

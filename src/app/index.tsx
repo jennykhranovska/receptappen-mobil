@@ -1,22 +1,24 @@
 import { styles } from "@/styles/homeStyles";
-import { router } from "expo-router";
-import { useEffect, useState } from "react";
+import { router, useFocusEffect } from "expo-router";
+import { useCallback, useState } from "react";
 import { Image, Pressable, ScrollView, Text } from "react-native";
 
 export default function HomeScreen() {
   const [recipes, setRecipes] = useState([]);
 
-  useEffect(() => {
-    fetch("http://localhost:5008/api/Recipes")
-      .then((response) => response.json())
-      .then((data) => {
-        setRecipes(data);
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error("Kunde inte hämta recepten:", error);
-      });
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      fetch("http://localhost:5008/api/Recipes")
+        .then((response) => response.json())
+        .then((data) => {
+          setRecipes(data);
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error("Kunde inte hämta recepten:", error);
+        });
+    }, []),
+  );
 
   return (
     <ScrollView style={styles.container}>

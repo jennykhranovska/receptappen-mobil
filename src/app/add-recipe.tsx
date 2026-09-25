@@ -1,8 +1,9 @@
 import { styles } from "@/styles/homeStyles";
 import { File } from "expo-file-system";
 import * as ImagePicker from "expo-image-picker";
+import { router } from "expo-router";
 import { useState } from "react";
-import { Pressable, ScrollView, Text, TextInput } from "react-native";
+import { Alert, Pressable, ScrollView, Text, TextInput } from "react-native";
 export default function AddRecipeScreen() {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
@@ -67,6 +68,12 @@ export default function AddRecipeScreen() {
         }
       }
       console.log("Recept skapat:", newRecipe);
+      Alert.alert("Klart!", "Receptet har sparats!", [
+        {
+          text: "OK",
+          onPress: () => router.replace("/"),
+        },
+      ]);
     } catch (error) {
       console.error("Fel när receptet skulle skapas:", error);
     }
@@ -120,6 +127,7 @@ export default function AddRecipeScreen() {
       <Pressable style={styles.button} onPress={pickImage}>
         <Text style={styles.buttonText}>Välj bild</Text>
       </Pressable>
+      {image && <Text>✓ Bild vald</Text>}
       <Pressable style={styles.button} onPress={addRecipe}>
         <Text style={styles.buttonText}>Spara recept</Text>
       </Pressable>
