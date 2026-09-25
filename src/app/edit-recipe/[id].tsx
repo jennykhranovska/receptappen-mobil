@@ -147,10 +147,12 @@ export default function EditRecipeScreen() {
         throw new Error("Kunde inte uppdatera receptet.");
       }
 
-      router.replace({
-        pathname: "/recipe/[id]",
-        params: { id: String(id) },
-      });
+      Alert.alert("Klart!", "Ändringarna har sparats!", [
+        {
+          text: "OK",
+          onPress: () => router.back(),
+        },
+      ]);
     } catch (error) {
       console.error("Fel när saveRecipe/PUT kördes:", error);
     }
