@@ -21,7 +21,10 @@ export default function HomeScreen() {
   );
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={{ paddingBottom: 60 }}
+    >
       <Text style={styles.title}>🍲 Smaka</Text>
       <Pressable
         style={styles.button}
