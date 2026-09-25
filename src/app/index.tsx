@@ -1,7 +1,14 @@
 import { styles } from "@/styles/homeStyles";
 import { router, useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
-import { Image, Pressable, ScrollView, Text, TextInput } from "react-native";
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 export default function HomeScreen() {
   const [recipes, setRecipes] = useState([]);
@@ -64,6 +71,12 @@ export default function HomeScreen() {
               source={{ uri: `http://localhost:5008${recipe.imagePath}` }}
               style={styles.recipeImage}
             />
+          )}
+          {!recipe.imagePath && (
+            <View style={styles.recipeImagePlaceholder}>
+              <Text style={styles.placeholderIcon}>🍲</Text>
+              <Text style={styles.placeholderText}>Ingen bild</Text>
+            </View>
           )}
 
           <Text style={styles.recipeName}>{recipe.name}</Text>

@@ -31,6 +31,29 @@ export const styles = StyleSheet.create({
     resizeMode: "cover",
   },
 
+  recipeImagePlaceholder: {
+    width: "100%",
+    aspectRatio: 16 / 9,
+    borderRadius: 8,
+    marginBottom: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#F8E7E1",
+    borderWidth: 1,
+    borderColor: "#E7C8BA",
+  },
+
+  placeholderIcon: {
+    fontSize: 24,
+    marginBottom: 4,
+  },
+
+  placeholderText: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#8F4A35",
+  },
+
   recipeName: {
     fontSize: 20,
     fontWeight: "bold",
