@@ -161,6 +161,18 @@ export const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
 
+  searchInput: {
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 14,
+    paddingVertical: 11,
+    fontSize: 16,
+    marginBottom: 16,
+    borderColor: "#D7A08C",
+    backgroundColor: "#FFFFFF",
+    color: "#24323D",
+  },
+
   imageStatus: {
     marginTop: 2,
     marginBottom: 4,

@@ -1,10 +1,11 @@
 import { styles } from "@/styles/homeStyles";
 import { router, useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
-import { Image, Pressable, ScrollView, Text } from "react-native";
+import { Image, Pressable, ScrollView, Text, TextInput } from "react-native";
 
 export default function HomeScreen() {
   const [recipes, setRecipes] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useFocusEffect(
     useCallback(() => {
@@ -20,6 +21,18 @@ export default function HomeScreen() {
     }, []),
   );
 
+  const normalizedSearchTerm = searchTerm.toLowerCase().trim();
+  const filteredRecipes = normalizedSearchTerm
+    ? recipes.filter((recipe: any) =>
+        [recipe.name, recipe.ingredients, recipe.category].some((value) =>
+          String(value ?? "")
+            .toLowerCase()
+            .split(/[\s,.;:!?()[\]{}'"/\\-]+/)
+            .some((word) => word.startsWith(normalizedSearchTerm)),
+        ),
+      )
+    : recipes;
+
   return (
     <ScrollView
       style={styles.container}
@@ -33,7 +46,14 @@ export default function HomeScreen() {
         <Text style={styles.buttonText}>+ Lägg till recept</Text>
       </Pressable>
 
-      {recipes.map((recipe: any) => (
+      <TextInput
+        style={styles.searchInput}
+        value={searchTerm}
+        onChangeText={setSearchTerm}
+        placeholder="Sök recept..."
+      />
+
+      {filteredRecipes.map((recipe: any) => (
         <Pressable
           key={recipe.id}
           style={styles.card}
