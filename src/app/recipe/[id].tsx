@@ -40,14 +40,6 @@ export default function RecipeScreen() {
         />
       )}
 
-      <Text style={styles.recipeDetailTitle}>{recipe.name}</Text>
-      <Pressable
-        style={styles.button}
-        onPress={() => router.push(`/edit-recipe/${recipe.id}`)}
-      >
-        <Text style={styles.buttonText}>Redigera recept</Text>
-      </Pressable>
-
       <Text style={styles.label}>Kategori: {recipe.category}</Text>
       <Text style={styles.label}>Tid: {recipe.cookingTime} min</Text>
 
@@ -56,6 +48,13 @@ export default function RecipeScreen() {
 
       <Text style={styles.recipeDetailHeading}>Instruktioner</Text>
       <Text style={styles.recipeDetailText}>{recipe.instructions}</Text>
+
+      <Pressable
+        style={styles.button}
+        onPress={() => router.push(`/edit-recipe/${recipe.id}`)}
+      >
+        <Text style={styles.buttonText}>Redigera recept</Text>
+      </Pressable>
     </ScrollView>
   );
 }

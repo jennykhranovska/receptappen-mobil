@@ -114,7 +114,7 @@ export const styles = StyleSheet.create({
     marginBottom: 12,
     alignItems: "center",
     alignSelf: "flex-start",
-    backgroundColor: "#2F7D72",
+    backgroundColor: "#C65D3A",
   },
 
   buttonText: {

@@ -16,6 +16,13 @@ export default function RootLayout() {
           title: "Recept",
         }}
       />
+
+      <Stack.Screen
+        name="edit-recipe/[id]"
+        options={{
+          title: "Redigera recept",
+        }}
+      />
     </Stack>
   );
 }
