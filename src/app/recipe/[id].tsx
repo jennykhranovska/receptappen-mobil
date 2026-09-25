@@ -40,13 +40,16 @@ export default function RecipeScreen() {
         />
       )}
 
-      <Text style={styles.title}>{recipe.name}</Text>
-      <Pressable onPress={() => router.push(`/edit-recipe/${recipe.id}`)}>
-        <Text>Redigera recept</Text>
+      <Text style={styles.recipeDetailTitle}>{recipe.name}</Text>
+      <Pressable
+        style={styles.button}
+        onPress={() => router.push(`/edit-recipe/${recipe.id}`)}
+      >
+        <Text style={styles.buttonText}>Redigera recept</Text>
       </Pressable>
 
-      <Text>Kategori: {recipe.category}</Text>
-      <Text>Tid: {recipe.cookingTime} min</Text>
+      <Text style={styles.label}>Kategori: {recipe.category}</Text>
+      <Text style={styles.label}>Tid: {recipe.cookingTime} min</Text>
 
       <Text style={styles.recipeDetailHeading}>Ingredienser</Text>
       <Text style={styles.recipeDetailText}>{recipe.ingredients}</Text>

@@ -21,8 +21,11 @@ export default function HomeScreen() {
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>🍲 Smaka</Text>
-      <Pressable onPress={() => router.push("/add-recipe")}>
-        <Text>+ Lägg till recept</Text>
+      <Pressable
+        style={styles.button}
+        onPress={() => router.push("/add-recipe")}
+      >
+        <Text style={styles.buttonText}>+ Lägg till recept</Text>
       </Pressable>
 
       {recipes.map((recipe: any) => (
@@ -39,8 +42,12 @@ export default function HomeScreen() {
           )}
 
           <Text style={styles.recipeName}>{recipe.name}</Text>
-          <Text>Kategori: {recipe.category}</Text>
-          <Text>Tid: {recipe.cookingTime} min</Text>
+          <Text style={styles.recipeDetailText}>
+            Kategori: {recipe.category}
+          </Text>
+          <Text style={styles.recipeDetailText}>
+            Tid: {recipe.cookingTime} min
+          </Text>
         </Pressable>
       ))}
     </ScrollView>

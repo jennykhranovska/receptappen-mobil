@@ -1,6 +1,7 @@
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { Pressable, ScrollView, Text, TextInput } from "react-native";
+import { styles } from "../../styles/homeStyles";
 
 export default function EditRecipeScreen() {
   const { id } = useLocalSearchParams();
@@ -74,34 +75,45 @@ export default function EditRecipeScreen() {
   };
 
   return (
-    <ScrollView>
-      <Text>Redigera recept</Text>
+    <ScrollView style={styles.container}>
+      <Text style={styles.formTitle}>Redigera recept</Text>
 
-      <Text>Namn</Text>
-      <TextInput value={name} onChangeText={setName} />
+      <Text style={styles.label}>Namn</Text>
+      <TextInput style={styles.input} value={name} onChangeText={setName} />
 
-      <Text>Kategori</Text>
-      <TextInput value={category} onChangeText={setCategory} />
-
-      <Text>Tid i minuter</Text>
+      <Text style={styles.label}>Kategori</Text>
       <TextInput
+        style={styles.input}
+        value={category}
+        onChangeText={setCategory}
+      />
+
+      <Text style={styles.label}>Tid i minuter</Text>
+      <TextInput
+        style={styles.input}
         value={cookingTime}
         onChangeText={setCookingTime}
         keyboardType="numeric"
       />
 
-      <Text>Ingredienser</Text>
-      <TextInput value={ingredients} onChangeText={setIngredients} multiline />
-
-      <Text>Instruktioner</Text>
+      <Text style={styles.label}>Ingredienser</Text>
       <TextInput
+        style={[styles.input, styles.textArea]}
+        value={ingredients}
+        onChangeText={setIngredients}
+        multiline
+      />
+
+      <Text style={styles.label}>Instruktioner</Text>
+      <TextInput
+        style={[styles.input, styles.textArea]}
         value={instructions}
         onChangeText={setInstructions}
         multiline
       />
 
-      <Pressable onPress={saveRecipe}>
-        <Text>Spara ändringar</Text>
+      <Pressable style={styles.button} onPress={saveRecipe}>
+        <Text style={styles.buttonText}>Spara ändringar</Text>
       </Pressable>
     </ScrollView>
   );

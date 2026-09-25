@@ -1,3 +1,4 @@
+import { styles } from "@/styles/homeStyles";
 import { File } from "expo-file-system";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
@@ -72,50 +73,55 @@ export default function AddRecipeScreen() {
   };
 
   return (
-    <ScrollView>
-      <Text>Lägg till recept</Text>
-      <Text>Namn</Text>
+    <ScrollView style={styles.container}>
+      <Text style={styles.formTitle}>Lägg till recept</Text>
+      <Text style={styles.label}>Namn</Text>
       <TextInput
+        style={styles.input}
         value={name}
         onChangeText={setName}
         placeholder="Receptets namn"
       />
 
-      <Text>Kategori</Text>
+      <Text style={styles.label}>Kategori</Text>
       <TextInput
+        style={styles.input}
         value={category}
         onChangeText={setCategory}
         placeholder="Till exempel Middag"
       />
 
-      <Text>Tid i minuter</Text>
+      <Text style={styles.label}>Tid i minuter</Text>
       <TextInput
+        style={styles.input}
         value={cookingTime}
         onChangeText={setCookingTime}
         placeholder="Till exempel 30"
         keyboardType="numeric"
       />
 
-      <Text>Ingredienser</Text>
+      <Text style={styles.label}>Ingredienser</Text>
       <TextInput
+        style={[styles.input, styles.textArea]}
         value={ingredients}
         onChangeText={setIngredients}
         placeholder="Skriv ingredienser"
         multiline
       />
 
-      <Text>Instruktioner</Text>
+      <Text style={styles.label}>Instruktioner</Text>
       <TextInput
+        style={[styles.input, styles.textArea]}
         value={instructions}
         onChangeText={setInstructions}
         placeholder="Skriv instruktioner"
         multiline
       />
-      <Pressable onPress={pickImage}>
-        <Text>Välj bild</Text>
+      <Pressable style={styles.button} onPress={pickImage}>
+        <Text style={styles.buttonText}>Välj bild</Text>
       </Pressable>
-      <Pressable onPress={addRecipe}>
-        <Text>Spara recept</Text>
+      <Pressable style={styles.button} onPress={addRecipe}>
+        <Text style={styles.buttonText}>Spara recept</Text>
       </Pressable>
     </ScrollView>
   );
