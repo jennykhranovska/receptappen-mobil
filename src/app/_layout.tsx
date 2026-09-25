@@ -23,6 +23,13 @@ export default function RootLayout() {
           title: "Redigera recept",
         }}
       />
+
+      <Stack.Screen
+        name="add-recipe"
+        options={{
+          title: "Lägg till recept",
+        }}
+      />
     </Stack>
   );
 }

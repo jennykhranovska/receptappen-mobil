@@ -3,7 +3,14 @@ import { File } from "expo-file-system";
 import * as ImagePicker from "expo-image-picker";
 import { router } from "expo-router";
 import { useState } from "react";
-import { Alert, Pressable, ScrollView, Text, TextInput } from "react-native";
+import {
+  Alert,
+  Pressable,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 export default function AddRecipeScreen() {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
@@ -80,57 +87,69 @@ export default function AddRecipeScreen() {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.formTitle}>Lägg till recept</Text>
-      <Text style={styles.label}>Namn</Text>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.addFormContent}
+    >
+      <Text style={styles.addFormTitle}>Lägg till recept</Text>
+      <Text style={styles.addLabel}>Namn</Text>
       <TextInput
-        style={styles.input}
+        style={styles.addInput}
         value={name}
         onChangeText={setName}
         placeholder="Receptets namn"
       />
 
-      <Text style={styles.label}>Kategori</Text>
+      <Text style={styles.addLabel}>Kategori</Text>
       <TextInput
-        style={styles.input}
+        style={styles.addInput}
         value={category}
         onChangeText={setCategory}
         placeholder="Till exempel Middag"
       />
 
-      <Text style={styles.label}>Tid i minuter</Text>
+      <Text style={styles.addLabel}>Tid i minuter</Text>
       <TextInput
-        style={styles.input}
+        style={styles.addInput}
         value={cookingTime}
         onChangeText={setCookingTime}
         placeholder="Till exempel 30"
         keyboardType="numeric"
       />
 
-      <Text style={styles.label}>Ingredienser</Text>
+      <Text style={styles.addLabel}>Ingredienser</Text>
       <TextInput
-        style={[styles.input, styles.textArea]}
+        style={[styles.addInput, styles.addTextArea]}
         value={ingredients}
         onChangeText={setIngredients}
         placeholder="Skriv ingredienser"
         multiline
       />
 
-      <Text style={styles.label}>Instruktioner</Text>
+      <Text style={styles.addLabel}>Instruktioner</Text>
       <TextInput
-        style={[styles.input, styles.textArea]}
+        style={[styles.addInput, styles.addTextArea]}
         value={instructions}
         onChangeText={setInstructions}
         placeholder="Skriv instruktioner"
         multiline
       />
-      <Pressable style={styles.button} onPress={pickImage}>
-        <Text style={styles.buttonText}>Välj bild</Text>
-      </Pressable>
-      {image && <Text>✓ Bild vald</Text>}
-      <Pressable style={styles.button} onPress={addRecipe}>
-        <Text style={styles.buttonText}>Spara recept</Text>
-      </Pressable>
+
+      {image && <Text style={styles.imageStatus}>✓ Bild vald</Text>}
+      <View style={styles.addButtonRow}>
+        <Pressable
+          style={[styles.button, styles.addSecondaryButton]}
+          onPress={pickImage}
+        >
+          <Text style={styles.addSecondaryButtonText}>Välj bild</Text>
+        </Pressable>
+        <Pressable
+          style={[styles.button, styles.addPrimaryButton]}
+          onPress={addRecipe}
+        >
+          <Text style={styles.buttonText}>Spara recept</Text>
+        </Pressable>
+      </View>
     </ScrollView>
   );
 }

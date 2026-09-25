@@ -82,11 +82,27 @@ export const styles = StyleSheet.create({
     marginBottom: 24,
   },
 
+  addFormContent: {
+    paddingBottom: 32,
+  },
+
+  addFormTitle: {
+    fontSize: 26,
+    fontWeight: "bold",
+    color: "#24323D",
+    marginBottom: 18,
+  },
+
   label: {
     fontSize: 16,
     fontWeight: "bold",
     color: "#24323D",
     marginBottom: 8,
+  },
+
+  addLabel: {
+    fontSize: 15,
+    marginBottom: 5,
   },
 
   input: {
@@ -100,9 +116,18 @@ export const styles = StyleSheet.create({
     color: "#24323D",
   },
 
+  addInput: {
+    padding: 10,
+    marginBottom: 10,
+  },
+
   textArea: {
     minHeight: 140,
     textAlignVertical: "top",
+  },
+
+  addTextArea: {
+    minHeight: 112,
   },
 
   button: {
@@ -134,6 +159,43 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: "#FFFFFF",
+  },
+
+  imageStatus: {
+    marginTop: 2,
+    marginBottom: 4,
+    fontSize: 14,
+    color: "#8F4A35",
+  },
+
+  addButtonRow: {
+    width: "100%",
+    flexDirection: "row",
+    gap: 8,
+    alignItems: "stretch",
+  },
+
+  addSecondaryButton: {
+    flex: 0.82,
+    alignSelf: "stretch",
+    paddingHorizontal: 8,
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "#C65D3A",
+    backgroundColor: "transparent",
+  },
+
+  addSecondaryButtonText: {
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "#C65D3A",
+  },
+
+  addPrimaryButton: {
+    flex: 1.18,
+    alignSelf: "stretch",
+    paddingHorizontal: 8,
+    justifyContent: "center",
   },
 
   deleteButton: {

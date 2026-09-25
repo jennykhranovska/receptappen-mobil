@@ -1,3 +1,5 @@
+import { File } from "expo-file-system";
+import * as ImagePicker from "expo-image-picker";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import {
@@ -69,6 +71,48 @@ export default function EditRecipeScreen() {
         },
       },
     ]);
+  };
+
+  const pickAndUploadImage = async () => {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ["images"],
+      allowsEditing: false,
+      quality: 0.8,
+    });
+
+    if (result.canceled) {
+      return;
+    }
+
+    try {
+      const selectedImage = result.assets[0];
+      const formData = new FormData();
+      const file = new File(selectedImage.uri);
+
+      formData.append("image", file);
+
+      const response = await fetch(
+        `http://localhost:5008/api/Recipes/${id}/image`,
+        {
+          method: "POST",
+          body: formData,
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("Kunde inte ladda upp bilden.");
+      }
+
+      const recipesResponse = await fetch("http://localhost:5008/api/Recipes");
+      const recipes = await recipesResponse.json();
+      const updatedRecipe = recipes.find(
+        (recipe: any) => recipe.id === Number(id),
+      );
+
+      setImagePath(updatedRecipe?.imagePath ?? "");
+    } catch (error) {
+      console.error("Fel när bilden skulle laddas upp:", error);
+    }
   };
 
   const saveRecipe = async () => {
@@ -168,6 +212,14 @@ export default function EditRecipeScreen() {
             onPress={deleteImage}
           >
             <Text style={styles.buttonText}>Ta bort bild</Text>
+          </Pressable>
+        )}
+        {!imagePath && (
+          <Pressable
+            style={[styles.button, styles.buttonInRow]}
+            onPress={pickAndUploadImage}
+          >
+            <Text style={styles.buttonText}>Lägg till bild</Text>
           </Pressable>
         )}
       </View>
